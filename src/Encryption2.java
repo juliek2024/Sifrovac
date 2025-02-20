@@ -2,28 +2,48 @@ import java.awt.*;
 
 import static java.awt.SystemColor.text;
 
-public class Encription2 {
-    public static String halfReversedEncription(String text) {
+public class Encryption2 {
+    public static String swappedHalvesEncryption(String text) {
         String[] sentence = text.split(" ");
-        StringBuilder encripted2 = new StringBuilder();
-        int length = text.length();
-        int middle = length / 2;
-        if (length % 2 == 0) {
-            return text.substring(middle - 1, middle + 1);
-        } else {
-            return text.substring(middle, middle + 1);
-            for (String word : sentence) {
-                String halfWord1 = word.substring(0, middle);
-                String halfWord2 = word.substring(middle);
-                String halfReversedWord = halfWord1 + halfWord2;
-                encripted2.append(halfReversedWord).append(" ");
+        StringBuilder encrypted2 = new StringBuilder();
+
+        for (String word : sentence) {
+            String cleanWord = word.replaceAll("[^a-zA-Z]", "");
+            String punctuation = word.replaceAll("[a-zA-Z]", "");
+
+            int length = cleanWord.length();
+            int middle = cleanWord.length() / 2;
+            if (length >= 1 && length % 2 != 0) {
+                middle = (cleanWord.length()+1) / 2;
             }
-            return encripted2.toString().trim();
+
+            String halfWord1 = cleanWord.substring(0, middle);
+            String halfWord2 = cleanWord.substring(middle);
+            encrypted2.append(halfWord2).append(halfWord1).append(punctuation).append(" ");
         }
 
-        public static String halfReversedDecription (String text) {
-            return halfReversedEncription(text);
+        return encrypted2.toString().trim();
+    }
+
+    public static String swappedHalvesDecryption (String text){
+
+        String[] words = text.split(" ");
+        StringBuilder decrypted2 = new StringBuilder();
+
+        for (String word : words) {
+            String cleanWord = word.replaceAll("[^a-zA-Z]", "");
+            String punctuation = word.replaceAll("[a-zA-Z]", "");
+
+            int length = cleanWord.length();
+            int middle = cleanWord.length() / 2;
+            if (length >= 1 && length % 2 != 0) {
+                middle = (cleanWord.length()-1) / 2;
+            }
+
+            String halfWord1 = cleanWord.substring(0, middle);
+            String halfWord2 = cleanWord.substring(middle);
+            decrypted2.append(halfWord2).append(halfWord1).append(punctuation).append(" ");
         }
+        return decrypted2.toString().trim();
     }
 }
-
